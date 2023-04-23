@@ -1,0 +1,23 @@
+{
+  "name": "movie-list-api",
+  "version": "1.0.0",
+  "description": "Front for a aplication abou Movie Lists",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Haghalaz/movie-list-api.git"
+  },
+  "keywords": [
+    "api",
+    "mopvielist"
+  ],
+  "author": "Luiz Coelho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Haghalaz/movie-list-api/issues"
+  },
+  "homepage": "https://github.com/Haghalaz/movie-list-api#readme"
+}
