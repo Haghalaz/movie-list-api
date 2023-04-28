@@ -2,6 +2,7 @@ import HomePage from "../../pages/home";
 import Login from "../../pages/login";
 import Register from "../../pages/register";
 import MovieView from "../../pages/movieView";
+import SurpriseMe from "../../pages/surpriseMe";
 
 // Routes List
 const routesList = [
@@ -20,6 +21,10 @@ const routesList = [
   {
     path: "Movie",
     component: MovieView,
+  },
+  {
+    path: "SurpriseMe",
+    component: SurpriseMe,
   },
 ];
 
