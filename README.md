@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Movie Suggestion Tool
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Movie Suggestion Tool is an online platform that uses a personalized recommendation algorithm to help users find movies based on their preferences. Users can explore a wide selection of movies in different genres, including action, adventure, comedy, drama, horror, romance, and more. In conclusion, the Movie Suggestion Tool is an effective tool to help users find new movies that they can enjoy.
 
 ## Available Scripts
 
