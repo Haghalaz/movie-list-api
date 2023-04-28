@@ -1,11 +1,13 @@
+import HomePage from "../../pages/home";
 import Login from "../../pages/login";
 import Register from "../../pages/register";
+import MovieView from "../../pages/movieView";
 
 // Routes List
 const routesList = [
   {
     path: "/",
-    component: Login,
+    component: HomePage,
   },
   {
     path: "Login",
@@ -14,6 +16,10 @@ const routesList = [
   {
     path: "Register",
     component: Register,
+  },
+  {
+    path: "Movie",
+    component: MovieView,
   },
 ];
 
