@@ -1,11 +1,34 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { AiOutlineStar, AiOutlineCalendar } from "react-icons/ai";
 import { TbLanguage } from "react-icons/tb";
 
 const IMG_URL = "https://image.tmdb.org/t/p/w500/";
 
+const GENRES_URL =
+  "https://api.themoviedb.org/3/genre/movie/list?api_key=440d2f7f4782ff80872b983192a83cf8&language=pt-BR";
+
 export default function CardMovie(props) {
+  const [genresList, setGenresList] = useState([]);
+
+  console.log(genresList);
+
+  useEffect(() => {
+    axios.get(GENRES_URL).then((response) => {
+      setGenresList(response.data.genres);
+    });
+  }, []);
+
+  function getGenreById(id) {
+    for (let i = 0; i < genresList.length; i++) {
+      if (genresList[i].id === id) {
+        return genresList[i].name;
+      } else {
+        continue;
+      }
+    }
+  }
+
   return (
     <>
       {props.data.map((item, index) => (
@@ -42,7 +65,7 @@ export default function CardMovie(props) {
                     key={index}
                     className="rounded-lg border border-green-600 bg-green-900 px-2 py-1"
                   >
-                    Gen {item}
+                    {getGenreById(item)}
                   </small>
                 ))}
               </div>
@@ -52,7 +75,7 @@ export default function CardMovie(props) {
               className="grid w-auto cursor-pointer place-items-center gap-2 rounded-lg bg-blue-700 px-3 py-2 text-sm font-medium text-white hover:bg-blue-800"
               href={`/Movie?m=${item.id}`}
             >
-              Read more
+              Ver mais +
             </a>
           </div>
         </div>
