@@ -1,53 +1,60 @@
 // Icons
-import { AiOutlineUser } from "react-icons/ai";
-import { AiOutlineLock } from "react-icons/ai";
-import { AiOutlineMail } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineMail, AiOutlineLock } from "react-icons/ai";
 
-export default function Register(props) {
+export default function Register() {
   return (
-    <div className="h-full flex items-center justify-center">
-      <div className="bg-[#2C2C37] lg:w-5/12 md:6/12 w-10/12 shadow-3xl">
-        <div className="bg-gray-700 text-white absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-4">
+    <div className="flex h-full items-center justify-center">
+      <div className="md:6/12 shadow-3xl w-10/12 bg-[#2C2C37] lg:w-5/12">
+        <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-gray-700 p-4 text-white">
           <AiOutlineMail />
         </div>
-        <div className="flex flex-col pb-10 justify-between">
+        <div className="flex flex-col justify-between pb-10">
           <form className="p-12 md:p-24">
-            <div className="flex items-center text-lg mb-6 md:mb-8">
+            <div className="mb-6 flex items-center text-lg md:mb-8">
               <AiOutlineUser className="absolute ml-3" />
               <input
                 type="text"
-                id="username"
-                className="bg-gray-200 rounded-lg pl-12 py-2 md:py-4 focus:outline-none w-full"
-                placeholder="Username"
+                id="User"
+                className="w-full rounded-lg bg-gray-200 py-2 pl-12 focus:outline-none md:py-4"
+                placeholder="Nome de usuário"
               />
             </div>
-            <div className="flex items-center text-lg mb-6 md:mb-8">
+            <div className="mb-6 flex items-center text-lg md:mb-8">
+              <AiOutlineUser className="absolute ml-3" />
+              <input
+                type="email"
+                id="email"
+                className="w-full rounded-lg bg-gray-200 py-2 pl-12 focus:outline-none md:py-4"
+                placeholder="E-mail"
+              />
+            </div>
+            <div className="mb-6 flex items-center text-lg md:mb-8">
+              <AiOutlineLock className="absolute ml-3" />
+              <input
+                type="password"
+                id="senha"
+                className="w-full rounded-lg bg-gray-200 py-2 pl-12 focus:outline-none md:py-4"
+                placeholder="Senha"
+              />
+            </div>
+            <div className="mb-6 flex items-center text-lg md:mb-8">
               <AiOutlineLock className="absolute ml-3" />
               <input
                 type="password"
                 id="password"
-                className="bg-gray-200 rounded-lg pl-12 py-2 md:py-4 focus:outline-none w-full"
-                placeholder="Password"
+                className="w-full rounded-lg bg-gray-200 py-2 pl-12 focus:outline-none md:py-4"
+                placeholder="Repita a senha"
               />
             </div>
-            <div className="flex items-center text-lg mb-6 md:mb-8">
-              <AiOutlineLock className="absolute ml-3" />
-              <input
-                type="password"
-                id="password"
-                className="bg-gray-200 rounded-lg pl-12 py-2 md:py-4 focus:outline-none w-full"
-                placeholder="Repeat Password"
-              />
-            </div>
-            <button className="bg-[#3E8C32] font-medium p-2 md:p-4 text-white uppercase w-full">
-              Register
+            <button className="w-full bg-[#3E8C32] p-2 font-medium uppercase text-white md:p-4">
+              Registrar
             </button>
           </form>
-          <p class="flex flex-col items-center justify-center text-center text-md text-gray-500">
-            <span>Already have a Account?</span>
+          <p class="text-md flex flex-col items-center justify-center text-center text-gray-500">
+            <span>Já tem uma conta?</span>
             <a
               href="/Login"
-              class="text-[#3E8C32] hover:text-[#8CD955] cursor-pointer transition ease-in duration-300"
+              class="cursor-pointer text-[#3E8C32] transition duration-300 ease-in hover:text-[#8CD955]"
             >
               Login
             </a>
