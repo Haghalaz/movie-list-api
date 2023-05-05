@@ -3,6 +3,7 @@ import Login from "../../pages/login";
 import Register from "../../pages/register";
 import MovieView from "../../pages/movieView";
 import SurpriseMe from "../../pages/surpriseMe";
+import UserPage from "../../pages/user";
 
 // Routes List
 const routesList = [
@@ -25,6 +26,10 @@ const routesList = [
   {
     path: "SurpriseMe",
     component: SurpriseMe,
+  },
+  {
+    path: "User",
+    component: UserPage,
   },
 ];
 
