@@ -7,6 +7,13 @@ const MOVIE_URL =
 
 export default function HomePage() {
   const [dataMovie, setDataMovie] = useState([]);
+  const isLogged = JSON.parse(localStorage.getItem("logged"));
+
+  if (!isLogged) {
+    let initUser = { logged: false };
+    localStorage.setItem("logged", JSON.stringify(initUser));
+    localStorage.setItem("userId", "00000000-0000-0000-0000-000000000000");
+  }
 
   useEffect(() => {
     axios.get(MOVIE_URL).then((response) => {
@@ -16,7 +23,7 @@ export default function HomePage() {
 
   return (
     <div className="container mx-auto flex h-auto flex-col gap-10 py-28">
-      <h2 className="font-semibold text-white">Featured</h2>
+      <h2 className="font-semibold text-white">Populares</h2>
       <div className="grid grid-cols-3 justify-items-center gap-5">
         <CardMovie data={dataMovie} />
       </div>
