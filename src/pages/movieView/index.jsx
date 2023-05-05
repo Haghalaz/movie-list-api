@@ -36,8 +36,6 @@ export default function MovieView(props) {
   const IMG_URL = "https://image.tmdb.org/t/p/w500/";
   const MOVIE_URL = `https://api.themoviedb.org/3/movie/${MOVIE_ID}?api_key=440d2f7f4782ff80872b983192a83cf8&language=pt-BR`;
 
-  console.log(dataMovie);
-
   useEffect(() => {
     axios.get(MOVIE_URL).then((response) => {
       setDataMovie(response.data);

@@ -11,8 +11,6 @@ const GENRES_URL =
 export default function CardMovie(props) {
   const [genresList, setGenresList] = useState([]);
 
-  console.log(genresList);
-
   useEffect(() => {
     axios.get(GENRES_URL).then((response) => {
       setGenresList(response.data.genres);
