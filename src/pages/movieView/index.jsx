@@ -26,6 +26,9 @@ function minutesToHoursAndMinutes(minutes) {
 
 export default function MovieView(props) {
   const [dataMovie, setDataMovie] = useState(null);
+  const [isLogged] = useState(
+    JSON.parse(localStorage.getItem("logged")).logged
+  );
 
   const [searchParams] = useSearchParams();
   const MOVIE_ID = searchParams.get("m");
@@ -112,15 +115,7 @@ export default function MovieView(props) {
                 </small>
               ))}
             </div>
-            <div className="grid grid-cols-3 gap-10">
-              <div className="space-y-1">
-                <h5 className="font-semibold">Votos</h5>
-                <div className="flex items-center gap-2">
-                  <AiOutlineStar />
-                  <p>{dataMovie.vote_count}</p>
-                </div>
-              </div>
-
+            <div className="grid grid-cols-2 gap-10">
               <div className="space-y-1">
                 <h5 className="font-semibold">Orçamento</h5>
 
@@ -137,13 +132,17 @@ export default function MovieView(props) {
             </div>
           </div>
           <div className="col-span-1 flex justify-center">
-            <input type="checkbox" id="choose-me" className="peer hidden" />
-            <label
-              htmlFor="choose-me"
-              className="flex h-fit cursor-pointer select-none items-center gap-2 rounded-lg border-2 border-gray-200 p-2 font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:border-[#D20939] peer-checked:bg-[#D20939] peer-checked:text-gray-900 "
-            >
-              <AiFillHeart className="h-5 w-5" /> Favoritar
-            </label>
+            {isLogged && (
+              <>
+                <input type="checkbox" id="choose-me" className="peer hidden" />
+                <label
+                  htmlFor="choose-me"
+                  className="flex h-fit cursor-pointer select-none items-center gap-2 rounded-lg border-2 border-gray-200 p-2 font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:border-[#D20939] peer-checked:bg-[#D20939] peer-checked:text-gray-900 "
+                >
+                  <AiFillHeart className="h-5 w-5" /> Favoritar
+                </label>
+              </>
+            )}
           </div>
         </div>
       )}
