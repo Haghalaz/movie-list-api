@@ -28,7 +28,7 @@ export default function HeaderMenu(props) {
             href="SurpriseMe"
             className="ease rounded bg-[#3E8C32] px-4 py-2 text-xs font-bold uppercase text-white shadow outline-none transition-all duration-150 hover:bg-[#8CD955] hover:shadow-md focus:outline-none active:bg-teal-600"
           >
-            Surprise Me
+            Me surpreenda
           </a>
         </div>
       </div>
