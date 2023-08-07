@@ -18,25 +18,17 @@ export default function SurpriseMe() {
   }, []);
 
   useEffect(() => {
-    const RANDOM_PAGE = Math.floor(Math.random() * 150) + 1;
-    const MOVIE_URL = `https://api.themoviedb.org/3/discover/movie?api_key=440d2f7f4782ff80872b983192a83cf8&language=pt-BR&sort_by=popularity.desc&include_adult=false&include_video=false&page=${RANDOM_PAGE}&with_genres=${genresId}&with_watch_monetization_types=flatrate`;
-
-    axios.get(MOVIE_URL).then((response) => {
-      const USED_INDEXES = [];
-      const RANDOM_MOVIES = [];
-
-      const RESPONSE_DATA = response.data.results;
-
-      while (RANDOM_MOVIES.length < 3) {
-        const randomIndex = Math.floor(Math.random() * RESPONSE_DATA.length);
-        if (!USED_INDEXES.includes(randomIndex)) {
-          RANDOM_MOVIES.push(RESPONSE_DATA[randomIndex]);
-          USED_INDEXES.push(randomIndex);
-        }
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_RANDOM_MOVIE}?genre=${genresId}`
+        );
+        setDataMovie(response.data);
+      } catch (error) {
+        console.log(error);
       }
-
-      setDataMovie(RANDOM_MOVIES);
-    });
+    }
+    fetchData();
   }, [genresId, reload]);
 
   return (
