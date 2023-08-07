@@ -16,41 +16,65 @@ function currencyFormat(num) {
 }
 
 function minutesToHoursAndMinutes(minutes) {
-  const hours = Math.floor(minutes / 60);
-  const remainingMinutes = minutes % 60;
-  const formattedHours = hours > 0 ? `${hours}h` : "";
-  const formattedMinutes =
-    remainingMinutes > 0 ? ` ${remainingMinutes}min` : "";
+  var hours = Math.floor(minutes / 60);
+  var remainingMinutes = minutes % 60;
+  var formattedHours = hours > 0 ? `${hours}h` : "";
+  var formattedMinutes = remainingMinutes > 0 ? ` ${remainingMinutes}min` : "";
   return formattedHours + formattedMinutes;
 }
 
 export default function MovieView(props) {
-  const [dataMovie, setDataMovie] = useState(null);
   const [isLogged] = useState(
     JSON.parse(localStorage.getItem("logged")).logged
   );
+  const [userId] = useState(localStorage.getItem("userId"));
+
+  const [dataMovie, setDataMovie] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(null);
 
   const [searchParams] = useSearchParams();
   const MOVIE_ID = searchParams.get("m");
 
   const IMG_URL = "https://image.tmdb.org/t/p/w500/";
-  const MOVIE_URL = `https://api.themoviedb.org/3/movie/${MOVIE_ID}?api_key=440d2f7f4782ff80872b983192a83cf8&language=pt-BR`;
 
   useEffect(() => {
-    axios.get(MOVIE_URL).then((response) => {
-      setDataMovie(response.data);
-    });
-  }, [MOVIE_URL]);
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_MOVIE_INFO}?guid=${userId}&id=${MOVIE_ID}`
+        );
+
+        setIsFavorite(response.data.itsFavorited);
+        setDataMovie(response.data.movie);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, [MOVIE_ID, userId]);
+
+  async function handleFavorite(favoriteState) {
+    const JSON = {
+      userId: userId,
+      favorite: favoriteState,
+      movieId: MOVIE_ID,
+    };
+    try {
+      await axios.put(process.env.REACT_APP_USER_MOVIE_FAVORITE, JSON);
+    } catch (error) {
+      alert("Erro: Tente novamente");
+    }
+  }
 
   return (
     <>
-      {dataMovie && (
+      {!!dataMovie && (
         <div className="container mx-auto grid h-full grid-flow-row-dense grid-cols-6 content-stretch gap-10 py-28 text-white">
           <div className="col-span-2 h-full">
             <div className="relative flex">
               <img
                 className="bg-gradient-to w-full rounded-lg bg-none"
-                src={IMG_URL + dataMovie.poster_path}
+                src={IMG_URL + dataMovie.posterPath}
                 alt="Movie Poster"
               />
               <span className="absolute h-full w-full bg-gradient-to-t from-[#15161C]"></span>
@@ -62,11 +86,11 @@ export default function MovieView(props) {
               <div className="flex gap-10">
                 <div className="flex items-center gap-2">
                   <AiOutlineCalendar />
-                  <p>{dataMovie.release_date.split("-")[0]}</p>
+                  <p>{dataMovie.releaseDate.split("-")[0]}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <AiOutlineStar />
-                  <p>{dataMovie.vote_average.toFixed(1)}</p>
+                  <p>{dataMovie.voteAverage.toFixed(1)}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <AiOutlineClockCircle />
@@ -93,7 +117,7 @@ export default function MovieView(props) {
             </div>
             <div className="flex flex-wrap items-center gap-4">
               <h5 className="font-semibold">Produtoras: </h5>
-              {dataMovie.production_companies.map((item, index) => (
+              {dataMovie.productionCompanies.map((item, index) => (
                 <small
                   key={index}
                   className="rounded-lg border border-zinc-600 bg-zinc-900 px-2 py-1"
@@ -104,7 +128,7 @@ export default function MovieView(props) {
             </div>
             <div className="flex flex-wrap items-center gap-4">
               <h5 className="font-semibold">Países de produção: </h5>
-              {dataMovie.production_countries.map((item, index) => (
+              {dataMovie.productionCountries.map((item, index) => (
                 <small
                   key={index}
                   className="rounded-lg border border-zinc-600 bg-zinc-900 px-2 py-1"
@@ -132,7 +156,17 @@ export default function MovieView(props) {
           <div className="col-span-1 flex justify-center">
             {isLogged && (
               <>
-                <input type="checkbox" id="choose-me" className="peer hidden" />
+                <input
+                  defaultChecked={isFavorite}
+                  type="checkbox"
+                  id="choose-me"
+                  className="peer hidden"
+                  onChange={(evt) => {
+                    let isFavoriteState = evt.target.checked;
+
+                    handleFavorite(isFavoriteState);
+                  }}
+                />
                 <label
                   htmlFor="choose-me"
                   className="flex h-fit cursor-pointer select-none items-center gap-2 rounded-lg border-2 border-gray-200 p-2 font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:border-[#D20939] peer-checked:bg-[#D20939] peer-checked:text-gray-900 "
